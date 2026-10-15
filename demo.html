@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cursor Pet Demo</title>
+<style>
+  :root { --bg: #fdf3f7; --ink: #3b2a33; --muted: #7a6670; --accent: #e86a9a; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 18px/1.65 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  main { max-width: 640px; margin: 0 auto; padding: 72px 24px 160px; }
+  h1 { font-size: 2.4rem; line-height: 1.15; margin: 0 0 .4em; }
+  h2 { margin-top: 2em; }
+  p { color: var(--muted); }
+  .card { background: #fff; border-radius: 16px; padding: 20px 24px; margin: 28px 0; box-shadow: 0 6px 24px #e86a9a1f; }
+  button { font: inherit; padding: 10px 18px; border: 0; border-radius: 999px; background: var(--accent); color: #fff; cursor: pointer; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Hi, I'm glad you stopped by!</h1>
+  <p>Move your mouse around this page. My little character follows the cursor, always keeping a gap so she never sits right under it. Stop moving and she flies to an empty spot at the edge of the screen, on the side opposite your cursor, and waves.</p>
+
+  <div class="card">
+    <h2 style="margin-top:0">About me</h2>
+    <p>This box, the headings and the paragraphs are all text, so she avoids landing on them. She never blocks clicks either. Try the button below even while she's flying over it.</p>
+    <button onclick="this.textContent='Clicked!'">Click me</button>
+  </div>
+
+  <h2>Projects</h2>
+  <p>Scroll the page while she's resting. Once you stop scrolling she checks the spot again and moves if text slid underneath her.</p>
+  <p>On phones and tablets there's no cursor, so she simply rests in a free corner and waves.</p>
+
+  <h2>Contact</h2>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Cras mattis consectetur purus sit amet fermentum.</p>
+  <p>Donec ullamcorper nulla non metus auctor fringilla. Maecenas faucibus mollis interdum. Nullam quis risus eget urna mollis ornare vel eu leo.</p>
+</main>
+
+<script src="pet.js" data-size="140" data-gap="110"></script>
+</body>
+</html>
