@@ -139,6 +139,8 @@
           const yy = Math.min(y, bottom);
           slots[side].push({ y: yy, busy: busyScore(laneX(side), yy) });
         }
+        // window shorter than she is: still give her one spot, mid-height
+        if (!slots[side].length) slots[side].push({ y: Math.max(H / 2, vh() / 2), busy: 0 });
       }
       slotsAt = performance.now();
     }
@@ -282,14 +284,24 @@
     document.body.appendChild(pet);
     const imgs = [...pet.querySelectorAll('img')];
     Promise.all(imgs.map(i => i.complete ? 0 : new Promise(r => { i.onload = i.onerror = r; })))
-      .then(() => {
-        goLand();
-        Object.assign(pos, landing);
-        pet.classList.add('ready');
-        waveTick();
-        blinkLoop();
-        requestAnimationFrame(frame);
-      });
+      .then(begin);
+  }
+
+  // The page can open with no size at all (a background tab, a minimised window,
+  // or a preview frame that hasn't been laid out yet). Wait until it has one.
+  let begun = false;
+  function begin() {
+    if (begun) return;
+    if (!vw() || !vh()) { addEventListener('resize', begin); return; }
+    begun = true;
+    removeEventListener('resize', begin);
+    invalidateSlots();
+    goLand();
+    Object.assign(pos, landing);
+    pet.classList.add('ready');
+    waveTick();
+    blinkLoop();
+    requestAnimationFrame(frame);
   }
   if (document.body) start(); else addEventListener('DOMContentLoaded', start);
 })();
